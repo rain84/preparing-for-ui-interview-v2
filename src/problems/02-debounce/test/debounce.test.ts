@@ -104,6 +104,12 @@ implementations.forEach(({ name, fn }) => {
 
         expect(fired.sort()).toEqual(['first', 'second'])
       })
+
+      it('should be async', async () => {
+        const debounced = studentSolution(() => 7, 100)
+        const res = await debounced()
+        expect(res).toBe(7)
+      })
     })
   })
 })
