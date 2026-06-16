@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 1.2 First of Array
  *
@@ -18,7 +19,8 @@ import type { Equal, Expect } from '@course/types'
 
 /* _____________ Your Code Here _____________ */
 
-type First = {};
+type First<T extends unknown[]> = T extends [infer U, ...unknown[]] ? U : never
+// type First2<T extends unknown[]> = T['length'] extends 0 ? never : T[0]
 
 /* _____________ Test Cases _____________ */
 
