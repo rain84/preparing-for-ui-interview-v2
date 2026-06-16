@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 1.1 Tuple Length
  *
@@ -16,7 +17,7 @@ import type { Equal, Expect } from '@course/types'
 
 /* _____________ Your Code Here _____________ */
 
-type Length = {};
+type Length<T extends readonly unknown[]> = T['length']
 
 /* _____________ Test Cases _____________ */
 
