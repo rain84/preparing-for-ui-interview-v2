@@ -1,8 +1,20 @@
 // bun test src/problems/05-throttle/test/throttle.test.ts
 
-export function throttle() {
+export function throttle<T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
+  let expiredAt = 0
 
+  return function (this: any, ...args: Parameters<T>) {
+    const now = Date.now()
+    if (now >= expiredAt) {
+      expiredAt = now + delay
+      fn.apply(this, args)
+    }
+  }
 }
+
 // --- Examples ---
 // Uncomment to test your implementation:
 
