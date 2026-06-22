@@ -1,10 +1,26 @@
 // bun test src/problems/06-es5-extends/test/es5-extends.test.ts
 
-export const myExtends = (SuperType: Function, SubType: Function) => {
-  // Step 1: Create a new constructor function MyType(this, ...args)
-  // Step 2: Set up prototype chain
-  // Step 3: Set up static/constructor inheritance
-  // Step 4: Return MyType
+export const myExtends = <T extends (...args: unknown[]) => unknown>(
+	SuperType: T,
+	SubType: T,
+) => {
+	// Step 1: Create a new constructor function MyType(this, ...args)
+	// Step 2: Set up prototype chain
+	// Step 3: Set up static/constructor inheritance
+	// Step 4: Return MyType
+
+	Object.setPrototypeOf(SubType.prototype, SuperType.prototype)
+	Object.setPrototypeOf(MyType, SuperType)
+
+	function MyType(...args: unknown[]) {
+		const instance = Object.create(SubType.prototype)
+		SuperType.apply(instance, args)
+		SubType.apply(instance, args)
+
+		return instance
+	}
+
+	return MyType
 }
 
 // --- Examples ---
